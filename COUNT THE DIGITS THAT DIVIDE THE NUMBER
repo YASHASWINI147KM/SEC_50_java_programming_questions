@@ -1,0 +1,18 @@
+class Solution {
+    public int countDigits(int num) {
+        int count = 0;
+        int temp = num; // Keep a copy of num so we don't lose the original value
+
+        while (temp > 0) {
+            int digit = temp % 10; // Extract the last digit
+            
+            if (num % digit == 0) { // Check if the original number is divisible by the digit
+                count++;
+            }
+            
+            temp /= 10; // Remove the last digit
+        }
+
+        return count;
+    }
+}
