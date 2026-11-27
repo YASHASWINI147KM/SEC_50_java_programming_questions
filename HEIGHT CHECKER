@@ -1,0 +1,29 @@
+class Solution {
+    public int heightChecker(int[] heights) {
+        // Frequency array for heights 1 to 100
+        int[] count = new int[101];
+        for (int height : heights) {
+            count[height]++;
+        }
+
+        int mismatches = 0;
+        int currentExpectedHeight = 1;
+
+        for (int height : heights) {
+            // Find the next available height in sorted order
+            while (count[currentExpectedHeight] == 0) {
+                currentExpectedHeight++;
+            }
+
+            // Compare actual height with expected height
+            if (height != currentExpectedHeight) {
+                mismatches++;
+            }
+
+            // Decrement the count as this expected height is now used
+            count[currentExpectedHeight]--;
+        }
+
+        return mismatches;
+    }
+}
