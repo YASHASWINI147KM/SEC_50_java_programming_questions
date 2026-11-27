@@ -1,0 +1,24 @@
+import java.util.Arrays;
+
+class Solution {
+    public int findContentChildren(int[] g, int[] s) {
+        // Sort both the greed factors and cookie sizes in ascending order
+        Arrays.sort(g);
+        Arrays.sort(s);
+        
+        int child = 0;
+        int cookie = 0;
+        
+        // Match the smallest possible cookie to the least greedy child
+        while (child < g.length && cookie < s.length) {
+            if (s[cookie] >= g[child]) {
+                // Cookie satisfies the child, move to the next child
+                child++;
+            }
+            // Move to the next cookie regardless of whether it was used or too small
+            cookie++;
+        }
+        
+        return child;
+    }
+}
