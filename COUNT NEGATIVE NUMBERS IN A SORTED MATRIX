@@ -1,0 +1,44 @@
+public class Solution {
+    public int countNegatives(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        int count = 0;
+
+        // Start from the bottom-left corner of the matrix
+        int row = m - 1;
+        int col = 0;
+
+        while (row >= 0 && col < n) {
+            if (grid[row][col] < 0) {
+                // Since rows are sorted in non-increasing order,
+                // all elements to the right in this row are also negative.
+                count += (n - col);
+                row--; // Move up to the previous row
+            } else {
+                // Current element is non-negative, move right to find smaller values
+                col++;
+            }
+        }
+
+        return count;
+    }
+
+    // Main method for local testing
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        
+        int[][] grid1 = {
+            {4, 3, 2, -1},
+            {3, 2, 1, -1},
+            {1, 1, -1, -2},
+            {-1, -1, -2, -3}
+        };
+        System.out.println("Output 1: " + sol.countNegatives(grid1)); // Output: 8
+
+        int[][] grid2 = {
+            {3, 2},
+            {1, 0}
+        };
+        System.out.println("Output 2: " + sol.countNegatives(grid2)); // Output: 0
+    }
+}
