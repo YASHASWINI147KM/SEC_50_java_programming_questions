@@ -1,0 +1,17 @@
+class Solution {
+    public double average(int[] salary) {
+        int totalSum = 0;
+        int minSalary = Integer.MAX_VALUE;
+        int maxSalary = Integer.MIN_VALUE;
+
+        // Find the sum, minimum, and maximum in a single pass
+        for (int current : salary) {
+            totalSum += current;
+            minSalary = Math.min(minSalary, current);
+            maxSalary = Math.max(maxSalary, current);
+        }
+
+        // Subtract min and max, then cast to double for decimal division
+        return (double) (totalSum - minSalary - maxSalary) / (salary.length - 2);
+    }
+}
