@@ -1,0 +1,24 @@
+import java.util.Arrays;
+
+class Solution {
+    public int findTheDistanceValue(int[] arr1, int[] arr2, int d) {
+        Arrays.sort(arr2);
+        int count = 0;
+
+        for (int x : arr1) {
+            // Find the insertion index for (x - d)
+            int idx = Arrays.binarySearch(arr2, x - d);
+            if (idx < 0) {
+                idx = -idx - 1;
+            }
+
+            // If there is no element >= (x - d) or the first such element is > (x + d),
+            // then no element in arr2 is within distance d of x.
+            if (idx == arr2.length || arr2[idx] > x + d) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+}
