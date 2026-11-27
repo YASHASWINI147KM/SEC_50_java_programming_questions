@@ -1,0 +1,41 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public List<Integer> luckyNumbers(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        
+        int maxOfRowMins = Integer.MIN_VALUE;
+        int targetCol = -1;
+        
+        // 1. Find the minimum in each row, and track the largest among them
+        for (int i = 0; i < m; i++) {
+            int rowMin = Integer.MAX_VALUE;
+            int minColIndex = -1;
+            
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] < rowMin) {
+                    rowMin = matrix[i][j];
+                    minColIndex = j;
+                }
+            }
+            
+            if (rowMin > maxOfRowMins) {
+                maxOfRowMins = rowMin;
+                targetCol = minColIndex;
+            }
+        }
+        
+        // 2. Verify if maxOfRowMins is also the maximum in its column
+        for (int i = 0; i < m; i++) {
+            if (matrix[i][targetCol] > maxOfRowMins) {
+                return new ArrayList<>(); // Not the column max, so no lucky number exists
+            }
+        }
+        
+        List<Integer> result = new ArrayList<>();
+        result.add(maxOfRowMins);
+        return result;
+    }
+}
